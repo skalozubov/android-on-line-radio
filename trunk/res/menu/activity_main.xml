@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Change server"/>
+	<item
+        android:id="@+id/item1"
+        android:orderInCategory="1"
+        android:showAsAction="never"
+        android:title="Change channel"/>
+     
+
+</menu>
