@@ -1,5 +1,6 @@
 package org.zub.dnb101ru;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +18,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.annotation.SuppressLint;
@@ -179,6 +180,26 @@ public class PlayerActivity extends Activity implements OnPreparedListener {
     	return null;
     }
     
+	public void downloadCurrentTrack(View view){
+		Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>downloadCurrentTrack()");
+		new Thread(new Runnable()
+		  {
+		  @Override
+		  public void run()
+		       {
+			  Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>run()");
+		       Downloader DDL=new Downloader();
+		       Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>downloader created");
+		       RecentTracks rt = new RecentTracks();
+		       Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>rt created");
+		       File out=new File(Environment.getExternalStorageDirectory() + "/Music/" + rt.getLatestTrackTitle() + ".mp3");
+		       Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>" + out);
+		       DDL.DownloadFile(rt.getLatestTrackURL(), out);
+
+		       }
+		    }).start();
+	}
+	
     public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
         Reader reader = null;
         reader = new InputStreamReader(stream, "UTF-8");        
