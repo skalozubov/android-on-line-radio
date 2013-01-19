@@ -1,15 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/menu_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Change server"/>
 	<item
-        android:id="@+id/item1"
+        android:id="@+id/item2"
         android:orderInCategory="1"
         android:showAsAction="never"
         android:title="Change channel"/>
-     
+	<item
+        android:id="@+id/item1"
+        android:orderInCategory="2"
+        android:showAsAction="never"
+        android:title="Change server"/>
+    <item
+        android:id="@+id/item3"
+        android:orderInCategory="3"
+        android:showAsAction="never"
+        android:title="Recent tracks"/>
 
 </menu>
