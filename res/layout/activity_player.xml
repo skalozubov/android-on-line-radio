@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/play_button"
-    	android:onClick="playAudio"/>
-
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
@@ -24,10 +15,11 @@
         android:id="@+id/songTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-	/>
+        android:layout_toLeftOf="@+id/button2"
+        android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/Volumelevel"
@@ -57,12 +49,31 @@
         android:text="10 "
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Download" 
+        android:onClick="downloadCurrentTrack"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:onClick="playAudio"
+        android:text="@string/play_button" />
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/songTitle"
+        android:layout_marginTop="22dp"
         android:src="@drawable/logo" />
 
 </RelativeLayout>
