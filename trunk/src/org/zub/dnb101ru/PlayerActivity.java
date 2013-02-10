@@ -24,7 +24,10 @@ import android.os.Message;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -182,20 +185,32 @@ public class PlayerActivity extends Activity implements OnPreparedListener {
     
 	public void downloadCurrentTrack(View view){
 		Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>downloadCurrentTrack()");
+		final NotificationManager mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		final Builder mBuilder = new NotificationCompat.Builder(this);
 		new Thread(new Runnable()
 		  {
 		  @Override
 		  public void run()
 		       {
-			  Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>run()");
-		       Downloader DDL=new Downloader();
-		       Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>downloader created");
-		       RecentTracks rt = new RecentTracks();
-		       Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>rt created");
-		       File out=new File(Environment.getExternalStorageDirectory() + "/Music/" + rt.getLatestTrackTitle() + ".mp3");
-		       Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>" + out);
-		       DDL.DownloadFile(rt.getLatestTrackURL(), out);
-
+			    Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>run()");
+		        Downloader DDL=new Downloader();
+		        Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>downloader created");
+		        RecentTracks rt = new RecentTracks();
+		        Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>rt created");
+		        String latestTrackTitle = rt.getLatestTrackTitle();
+				mBuilder.setContentTitle(latestTrackTitle)
+			     .setContentText("Download in progress")
+			     .setSmallIcon(R.drawable.av_download);
+		    	mBuilder.setProgress(0, 0, true);
+		    	// Issues the notification
+		    	mNotifyManager.notify(11112222, mBuilder.build());
+		        File out=new File(Environment.getExternalStorageDirectory() + "/Music/" + latestTrackTitle + ".mp3");
+		        Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>" + out);
+		        DDL.DownloadFile(rt.getLatestTrackURL(), out);
+	            mBuilder.setContentText("Download complete")
+	            // Removes the progress bar
+	                    .setProgress(0,0,false);
+	            mNotifyManager.notify(11112222, mBuilder.build());
 		       }
 		    }).start();
 	}
