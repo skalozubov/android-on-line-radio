@@ -28,6 +28,9 @@ public boolean DownloadFile(String url, File outputFile)
       URLConnection conn = u.openConnection();
       int contentLength = conn.getContentLength();
       Log.i("JSONTest", ">>>>>>>>>>>>>>>>>>>>>contentLength is: " + contentLength);
+      if (contentLength == -1) {
+    	  return false;
+      }
       DataInputStream stream = new DataInputStream(u.openStream());
 
 
