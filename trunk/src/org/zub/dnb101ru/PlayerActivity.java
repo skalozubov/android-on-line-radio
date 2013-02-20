@@ -206,11 +206,19 @@ public class PlayerActivity extends Activity implements OnPreparedListener {
 		    	mNotifyManager.notify(11112222, mBuilder.build());
 		        File out=new File(Environment.getExternalStorageDirectory() + "/Music/" + latestTrackTitle + ".mp3");
 		        Log.i(TAG, ">>>>>>>>>>>>>>>>>>>>>" + out);
-		        DDL.DownloadFile(rt.getLatestTrackURL(), out);
-	            mBuilder.setContentText("Download complete")
-	            // Removes the progress bar
-	                    .setProgress(0,0,false);
-	            mNotifyManager.notify(11112222, mBuilder.build());
+		        Boolean downloadResult = DDL.DownloadFile(rt.getLatestTrackURL(), out);
+		        if (downloadResult){
+		            mBuilder.setContentText("Download complete")
+		            // Removes the progress bar
+		                    .setProgress(0,0,false);
+		            mNotifyManager.notify(11112222, mBuilder.build());
+		        }
+		        else {
+		            mBuilder.setContentText("Error is occurred")
+		            // Removes the progress bar
+		                    .setProgress(0,0,false);
+		            mNotifyManager.notify(11112222, mBuilder.build());
+		        }
 		       }
 		    }).start();
 	}
